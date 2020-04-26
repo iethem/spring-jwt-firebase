@@ -1,0 +1,69 @@
+buildscript {
+  dependencies {
+    classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.22.1"
+  }
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.2.0.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+	id 'com.palantir.docker' version '0.22.1'
+}
+
+group = 'io.github.iethem'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'com.google.firebase:firebase-admin:6.12.2'
+	
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}	
+}
+
+docker {
+  name "iethem/${project.name}:latest"
+  tags 'latest'
+  dockerfile file('src/main/docker/Dockerfile')
+  files tasks.jar.outputs,
+        'src/main/docker/run.sh'
+  copySpec.rename("${project.name}-${version}.jar", "app.jar")
+  buildArgs([BUILD_VERSION: "${version}"])
+  buildArgs([PROJECT: "${project.name}"])
+  labels(['project': "${project.name}"])
+}
+
+test {
+	useJUnitPlatform()
+}
+
+task npmInstall(type: Exec) {
+  workingDir 'src/main/javascript'
+  commandLine 'npm', 'install'
+}
+
+task npmBuild(type: Exec) {
+  workingDir 'src/main/javascript'
+  commandLine 'npm', 'run', 'build'
+}
+
+task deleteOldBuild(type: Delete) {
+	delete "src/main/resources/web/"
+}
+
+task copyNewBuild(type: Copy) {
+	from 'src/main/javascript/build'
+	into 'src/main/resources/web/'
+}
+
+copyNewBuild.dependsOn(deleteOldBuild)
