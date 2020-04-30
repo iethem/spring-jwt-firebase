@@ -124,7 +124,7 @@ Once we have an ID token, we can send that JWT to our backend and validate it:
 ```command
 curl http://localhost:8080/api/user
 	-H "Accept: application/json"
-    -H "Authorization: Bearer {idToken}"
+	-H "Authorization: Bearer {idToken}"
 ```
 
 # Reference
