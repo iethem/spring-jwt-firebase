@@ -8,10 +8,9 @@
 - Spring Security
 - JWT
 
-> [You can do it yourself whole the application](DIY.md)
+> [Do it yourself!](DIY.md)
 
 ## Project Structure
-
 ```
 └── src
     └── main
@@ -22,8 +21,9 @@
 ```
 
 # Usage
-
 1. Create a Firebase Application on Firebase ([more information](https://gitlab.eteration.com/blogs/www/blob/master/2019/October/Firebase.md#creating-a-firebase-application))
+    - Activate Sign-in Providers: Email/Password and Google.
+    - Create Database (Cloud Firestore)
 2. Create a web app on your Firebase Project Settings
     - Replace your config with `src/main/javascript/app/firebaseConfig.js`
     ```js
@@ -55,11 +55,10 @@
         "client_x509_cert_url": "<your-client_x509_cert_url>"
     }
     ```
-4. Replace your `project id` on `src/main/resource/appliation.yml`
+4. Replace your `project id` on `src/main/resources/application.yml`
 
 ## React
-
-To run react app:
+Open the project from CLI and run the following commands:
 
     cd src/main/javascript
     npm i
@@ -105,9 +104,31 @@ To run docker image:
 
     docker run --rm -it -p 8080:8080 iethem/firebase
 
+# Retrieving/Validating ID tokens
+> Use the React application to get ID tokens, the Spring Boot application does not provide ID tokens.
+
+When a user or device successfully signs in, Firebase creates a corresponding ID token that uniquely identifies them and grants them access to several resources, such as Firebase Realtime Database and Cloud Storage. We can re-use that ID token to identify the user or device on our custom backend server. To retrieve the ID token from the client (React), make sure the user is signed in and then get the ID token from the signed-in user:
+```js
+firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+  console.log(idToken)
+  // Send token to your backend via HTTPS
+  // ...
+}).catch(function(error) {
+  // Handle error
+});
+
+// Check src/main/javascript/app/utils/request.js
+```
+
+Once we have an ID token, we can send that JWT to our backend and validate it:
+```command
+curl http://localhost:8080/api/user
+	-H "Accept: application/json"
+    -H "Authorization: Bearer {idToken}"
+```
 
 # Reference
 You can find a related post for this repository [here](https://gitlab.eteration.com/blogs/www/blob/master/2019/October/Firebase.md). 
 
 # License
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
