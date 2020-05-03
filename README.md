@@ -1,23 +1,21 @@
 # Spring Boot JWT Example with Firebase Authentication
-> Spring Security OAuth2 implementation to make use of JSON Web Tokens
+Spring Security OAuth2 implementation to make use of JSON Web Tokens
+> [Do it yourself!](DIY.md)
 
 - Firebase Authentication
 - Cloud Firestore
 - React
 - Spring Boot
 - Spring Security
-- JWT
-
-> [Do it yourself!](DIY.md)
 
 ## Project Structure
 ```
-└── src
-    └── main
-        ├── docker 
-        ├── java
-        ├── javascript
-        └── resources
+src
+└── main
+    ├── docker 
+    ├── java
+    ├── javascript
+    └── resources
 ```
 
 # Usage
