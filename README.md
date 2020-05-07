@@ -61,6 +61,31 @@ Open the project from CLI and run the following commands:
     cd src/main/javascript
     npm i
     npm start
+    
+> Other npm scripts can be found on [react-boilerplate/commands](https://github.com/react-boilerplate/react-boilerplate/blob/master/docs/general/commands.md#command-line-commands)
+
+To use other sign-in providers like Facebook, Twitter:
+- Add providers on Firebase
+- Configure the Firebase UI config
+
+```js
+//../javascript/app/containers/HomePage/index.js
+
+const uiConfig = {
+  // Popup signin flow rather than redirect flow.
+  signInFlow: 'popup',
+  // We will display Email and Google as auth providers.
+  signInOptions: [
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+  ],
+  callbacks: {
+    // Avoid redirects after sign-in.
+    signInSuccessWithAuthResult: () => false,
+  },
+};
+```
+> Learn more configuring sign-in providers on [firebaseui-web](https://github.com/firebase/firebaseui-web/#configuring-sign-in-providers).
 
 ### Spring Boot
 Open the project from CLI and run the following commands:
