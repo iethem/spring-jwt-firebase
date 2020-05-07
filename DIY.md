@@ -2,7 +2,7 @@
 
 This guide helps you using Firebase Authentication with React and Spring Boot.
 
-At the and of this guide you will be using Firebase Authentication, Cloud Firestore, React, and Spring Boot. Also, we will create a Docker image to deploy our whole application.
+At the end of this guide you will be using Firebase Authentication, Cloud Firestore, React, and Spring Boot. Also, we will create a Docker image to deploy our whole application.
 
 ## Table of Contents
 
