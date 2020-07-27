@@ -55,7 +55,7 @@ src
     ```
 4. Replace your `project id` on `src/main/resources/application.yml`
 
-### React
+## React
 Open the project from CLI and run the following commands:
 
     cd src/main/javascript
@@ -87,8 +87,14 @@ const uiConfig = {
 ```
 > Learn more configuring sign-in providers on [firebaseui-web](https://github.com/firebase/firebaseui-web/#configuring-sign-in-providers).
 
-### Spring Boot
+## Spring Boot
 Open the project from CLI and run the following commands:
+
+    ./gradlew bootRun
+
+## Building
+
+**Note:** If you have added new routes on React application check `MvcConfig.java` under the `src/main/java` folder.
 
 To install npm packages: 
 > If you installed packages you don't need to run this command

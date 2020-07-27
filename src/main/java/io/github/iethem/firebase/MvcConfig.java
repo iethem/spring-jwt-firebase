@@ -13,16 +13,17 @@ public class MvcConfig implements WebMvcConfigurer {
 	
 
 	@GetMapping("/error")
-  public String error() {
-      return "Error handling";
-  }
+	public String error() {
+		return "Error handling";
+	}
     
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry
-		.addViewController("/")
-		.setViewName("forward:/index.html");
-    // If you need different routing uncomment below lines and edit your own settings
+			.addViewController("/")
+			.setViewName("forward:/index.html");
+		
+		// If you need different routing uncomment below lines and edit your own settings
 		// registry
 		// 	.addViewController("/management")
 		// 	.setViewName("forward:/index.html");
