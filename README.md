@@ -54,6 +54,15 @@ src
     }
     ```
 4. Replace your `project id` on `src/main/resources/application.yml`
+	```
+	spring:
+	  security:
+	    oauth2:
+	      resourceserver:
+		jwt:
+		  issuer-uri: https://securetoken.google.com/<project-id>          			   
+		  jwk-set-uri: https://www.googleapis.com/robot/v1/metadata/jwk/securetoken@system.gserviceaccount.com
+	```
 
 ## React
 Open the project from CLI and run the following commands:
@@ -88,6 +97,7 @@ const uiConfig = {
 > Learn more configuring sign-in providers on [firebaseui-web](https://github.com/firebase/firebaseui-web/#configuring-sign-in-providers).
 
 ## Spring Boot
+
 Open the project from CLI and run the following commands:
 
     ./gradlew bootRun
